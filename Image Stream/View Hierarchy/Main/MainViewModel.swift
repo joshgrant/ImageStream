@@ -33,6 +33,9 @@ class MainViewModel
         var images: [Image] = []
         var current: Int = 0
         
+        // This is just to update the loading view...
+        progress(0)
+        
         for url in urls
         {
             group.enter()

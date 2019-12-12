@@ -30,7 +30,7 @@ class ImageAnalyzer
         
         let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .default).async {
             try? imageRequestHandler.perform([request])
         }
     }
