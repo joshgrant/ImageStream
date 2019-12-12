@@ -40,6 +40,7 @@ class MainViewController: NSViewController
     var viewModel: MainViewModel = MainViewModel()
     var readyForUpdate: Bool = true
     
+    var idealFPS: Int = 10
     var frames: Int = 0
     var startTime: Date?
     
@@ -49,17 +50,16 @@ class MainViewController: NSViewController
             
             let controller: MainViewController = unsafeBitCast(context, to: MainViewController.self)
             if controller.readyForUpdate {
-                controller.frames += 1
+                
                 controller.readyForUpdate = false
                 controller.updateImage()
                 
-                let distance = controller.startTime?.distance(to: Date()) ?? 0
+                let seconds = controller.startTime?.distance(to: Date()) ?? 0
+                let fps = Double(controller.frames) / seconds
                 
-                let frameRate = Double(controller.frames) / distance
-                
-                if distance > 1 {
+                if seconds > 1 {
                     DispatchQueue.main.async {
-                        controller.fpsLabel.stringValue = "\(Int(frameRate))"
+                        controller.fpsLabel.stringValue = "\(Int(fps))"
                     }
                     controller.startTime = Date()
                     controller.frames = 0
@@ -67,6 +67,7 @@ class MainViewController: NSViewController
             } else {
                 print("Dropped")
             }
+            
             return kCVReturnSuccess
         }
         return callback
@@ -105,6 +106,7 @@ class MainViewController: NSViewController
                 self.viewModel.currentImage = 0
             }
             
+            self.frames += 1
             self.readyForUpdate = true
         }
     }
