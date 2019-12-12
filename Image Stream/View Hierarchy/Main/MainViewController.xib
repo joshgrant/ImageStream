@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hWj-7j-MVg">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="8Mv-yP-WEA"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fgi-dR-ERr">
+                    <rect key="frame" x="425" y="20" width="37" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="N8T-UJ-lxg">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-yz-scu">
+                    <rect key="frame" x="20" y="126" width="440" height="20"/>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstItem="uN0-yz-scu" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="8pD-fb-UOq"/>
+                <constraint firstAttribute="trailing" secondItem="hWj-7j-MVg" secondAttribute="trailing" id="TXo-Ku-7TM"/>
+                <constraint firstAttribute="bottom" secondItem="fgi-dR-ERr" secondAttribute="bottom" constant="20" symbolic="YES" id="VPN-sQ-aS3"/>
+                <constraint firstItem="hWj-7j-MVg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="YRM-Ag-PzO"/>
+                <constraint firstItem="hWj-7j-MVg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="cFC-eP-BcC"/>
+                <constraint firstAttribute="trailing" secondItem="fgi-dR-ERr" secondAttribute="trailing" constant="20" symbolic="YES" id="knW-Wq-zih"/>
+                <constraint firstAttribute="bottom" secondItem="hWj-7j-MVg" secondAttribute="bottom" id="ntN-dA-ITf"/>
+                <constraint firstAttribute="trailing" secondItem="uN0-yz-scu" secondAttribute="trailing" constant="20" symbolic="YES" id="olU-Ol-2MU"/>
+                <constraint firstItem="uN0-yz-scu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="wqk-OM-qTG"/>
+            </constraints>
+            <point key="canvasLocation" x="141" y="154"/>
+        </customView>
+        <viewController id="FjZ-GB-jl4" customClass="MainViewController" customModule="Image_Stream" customModuleProvider="target">
+            <connections>
+                <outlet property="fpsLabel" destination="fgi-dR-ERr" id="xeS-T9-Gvz"/>
+                <outlet property="imageView" destination="hWj-7j-MVg" id="MH1-1n-XMJ"/>
+                <outlet property="progressBar" destination="uN0-yz-scu" id="9dL-qm-z5H"/>
+                <outlet property="view" destination="c22-O7-iKe" id="SjF-Su-sl6"/>
+            </connections>
+        </viewController>
+    </objects>
+</document>
