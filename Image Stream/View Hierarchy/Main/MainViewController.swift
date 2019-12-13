@@ -40,32 +40,38 @@ class MainViewController: NSViewController
     var viewModel: MainViewModel = MainViewModel()
     var readyForUpdate: Bool = true
     
-    var idealFPS: Int = 10
+    var idealFPS: Int = 100
     var frames: Int = 0
     var startTime: Date?
     
-    // TODO: Clean this up!
     lazy var displayLinkCallback: CVDisplayLinkOutputCallback? = {
         let callback: CVDisplayLinkOutputCallback = { displayLink, inNow, inOutputTime, flagsIn, flagsOut, context -> CVReturn in
             
             let controller: MainViewController = unsafeBitCast(context, to: MainViewController.self)
-            if controller.readyForUpdate {
-                
-                controller.readyForUpdate = false
-                controller.updateImage()
-                
-                let seconds = controller.startTime?.distance(to: Date()) ?? 0
-                let fps = Double(controller.frames) / seconds
-                
-                if seconds > 1 {
-                    DispatchQueue.main.async {
-                        controller.fpsLabel.stringValue = "\(Int(fps))"
-                    }
-                    controller.startTime = Date()
-                    controller.frames = 0
+            let seconds = controller.startTime?.distance(to: Date()) ?? 0
+            
+            let frames = Double(controller.frames)
+            let idealFPS = Double(controller.idealFPS)
+            let fps = frames / seconds
+            
+            if fps > idealFPS
+            {
+                return kCVReturnSuccess
+            }
+            else
+            {
+                if controller.readyForUpdate
+                {
+                    controller.readyForUpdate = false
+                    controller.updateImage()
                 }
-            } else {
-                print("Dropped")
+            }
+            
+            if seconds > 1
+            {
+                controller.frames = 0
+                controller.updateLabel(fps: fps)
+                controller.startTime = Date()
             }
             
             return kCVReturnSuccess
@@ -85,6 +91,7 @@ class MainViewController: NSViewController
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var fpsLabel: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
+    @IBOutlet weak var idealFPSSlider: NSSlider!
     
     override func viewDidLoad()
     {
@@ -94,6 +101,15 @@ class MainViewController: NSViewController
         fpsLabel.isHidden = !Defaults.showFPS
     }
     
+    // TODO: Clean up
+    func updateLabel(fps: Double)
+    {
+        DispatchQueue.main.async {
+            self.fpsLabel.stringValue = "\(Int(fps))"
+        }
+    }
+    
+    // TODO: Clean up
     func updateImage()
     {
         DispatchQueue.main.async {
@@ -112,6 +128,11 @@ class MainViewController: NSViewController
     }
     
     // MARK: - Functions
+    
+    @IBAction func idealFPSSliderValueChanged(_ sender: NSSlider)
+    {
+        self.idealFPS = Int(sender.doubleValue)
+    }
     
     @IBAction func open(_ sender: NSMenuItem)
     {
@@ -191,5 +212,9 @@ class MainViewController: NSViewController
         })
         
         return urls ?? []
+    }
+    
+    deinit {
+        CVDisplayLinkStop(displayLink)
     }
 }

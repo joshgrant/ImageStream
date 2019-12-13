@@ -25,25 +25,37 @@
                     </textFieldCell>
                 </textField>
                 <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-yz-scu">
-                    <rect key="frame" x="20" y="126" width="440" height="20"/>
+                    <rect key="frame" x="20" y="49" width="440" height="174"/>
                 </progressIndicator>
+                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-yz-inA">
+                    <rect key="frame" x="18" y="18" width="427" height="24"/>
+                    <sliderCell key="cell" state="on" alignment="left" maxValue="60" doubleValue="59.999999999999993" tickMarkPosition="above" numberOfTickMarks="12" sliderType="linear" id="7gl-Ow-nE2"/>
+                    <connections>
+                        <action selector="idealFPSSliderValueChanged:" target="FjZ-GB-jl4" id="Ked-2M-UYJ"/>
+                    </connections>
+                </slider>
             </subviews>
             <constraints>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="8pD-fb-UOq"/>
+                <constraint firstItem="sfT-yz-inA" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="9uM-iU-kMy"/>
+                <constraint firstItem="sfT-yz-inA" firstAttribute="top" secondItem="uN0-yz-scu" secondAttribute="bottom" constant="8" symbolic="YES" id="F5g-Ch-UaP"/>
                 <constraint firstAttribute="trailing" secondItem="hWj-7j-MVg" secondAttribute="trailing" id="TXo-Ku-7TM"/>
                 <constraint firstAttribute="bottom" secondItem="fgi-dR-ERr" secondAttribute="bottom" constant="20" symbolic="YES" id="VPN-sQ-aS3"/>
                 <constraint firstItem="hWj-7j-MVg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="YRM-Ag-PzO"/>
                 <constraint firstItem="hWj-7j-MVg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="cFC-eP-BcC"/>
+                <constraint firstItem="fgi-dR-ERr" firstAttribute="leading" secondItem="sfT-yz-inA" secondAttribute="trailing" constant="8" symbolic="YES" id="iWT-8G-Avc"/>
                 <constraint firstAttribute="trailing" secondItem="fgi-dR-ERr" secondAttribute="trailing" constant="20" symbolic="YES" id="knW-Wq-zih"/>
                 <constraint firstAttribute="bottom" secondItem="hWj-7j-MVg" secondAttribute="bottom" id="ntN-dA-ITf"/>
                 <constraint firstAttribute="trailing" secondItem="uN0-yz-scu" secondAttribute="trailing" constant="20" symbolic="YES" id="olU-Ol-2MU"/>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="wqk-OM-qTG"/>
+                <constraint firstAttribute="bottom" secondItem="sfT-yz-inA" secondAttribute="bottom" constant="20" symbolic="YES" id="zlX-C5-esX"/>
             </constraints>
             <point key="canvasLocation" x="141" y="154"/>
         </customView>
         <viewController id="FjZ-GB-jl4" customClass="MainViewController" customModule="Image_Stream" customModuleProvider="target">
             <connections>
                 <outlet property="fpsLabel" destination="fgi-dR-ERr" id="xeS-T9-Gvz"/>
+                <outlet property="idealFPSSlider" destination="sfT-yz-inA" id="ic5-6V-xHc"/>
                 <outlet property="imageView" destination="hWj-7j-MVg" id="MH1-1n-XMJ"/>
                 <outlet property="progressBar" destination="uN0-yz-scu" id="9dL-qm-z5H"/>
                 <outlet property="view" destination="c22-O7-iKe" id="SjF-Su-sl6"/>
