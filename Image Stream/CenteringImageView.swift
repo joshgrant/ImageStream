@@ -44,20 +44,19 @@ class CenteringImageView: NSView
             let scaledImageSize = CGSize(width: imageSize.width * scaleFactor, height: imageSize.height * scaleFactor)
             
             let offset = CGPoint(x: rect.center.x - (imageSize.width * scaleFactor) / 2,
-                                y: rect.center.y - (imageSize.height * scaleFactor) / 2)
+                                 y: rect.center.y - (imageSize.height * scaleFactor) / 2)
             
             let newRect = CGRect(origin: offset, size: scaledImageSize)
             
-            image?.image.draw(in: newRect)
-            
-            if image?.cachedImage == nil
+            if image?.cachedImage[scaleFactor] == nil
             {
-            image?.cachedImage = NSImage(size: scaledImageSize, flipped: false) { (rect) -> Bool in
-                image?.image.draw(in: rect)
+                image?.cachedImage[scaleFactor] = NSImage(size: scaledImageSize, flipped: false) { [weak self] rect -> Bool in
+                    self?.image?.image.draw(in: rect)
+                    return true
+                }
             }
-
-                image?.cachedImage?.draw(in: <#T##NSRect#>)
             
+            image?.cachedImage[scaleFactor]?.draw(in: newRect)
         }
         else
         {
@@ -84,15 +83,17 @@ class CenteringImageView: NSView
             let distanceCenters = CGPoint(x: centerOfRect.x - scaledCenterOfBounding.x,
                                           y: centerOfRect.y - scaledCenterOfBounding.y)
             
-            print(scaledImageSize, centerOfRect, centerOfBoundingBox, scaledCenterOfBounding, distanceCenters)
-            
-//            let newCenter =
-            
-            
             let newRect = CGRect(origin: distanceCenters, size: scaledImageSize)
             
-            // Is this what's slow?
-            image?.image.draw(in: newRect)
+            if image?.cachedImage[scaleFactor] == nil
+            {
+                image?.cachedImage[scaleFactor] = NSImage(size: scaledImageSize, flipped: false) { [weak self] rect -> Bool in
+                    self?.image?.image.draw(in: rect)
+                    return true
+                }
+            }
+            
+            image?.cachedImage[scaleFactor]?.draw(in: newRect)
         }
     }
 }

@@ -12,7 +12,8 @@ import Vision
 class Image
 {
     var image: NSImage
-    var cachedImage: NSImage?
+    /// The key is the image scale... so we can resize it 
+    var cachedImage: [CGFloat: NSImage] = [:]
     var faces: [VNFaceObservation]
     
     /// The size is the default size of the image in pixels

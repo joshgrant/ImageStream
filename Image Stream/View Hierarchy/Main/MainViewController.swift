@@ -105,6 +105,14 @@ class MainViewController: NSViewController
         fpsLabel.isHidden = !Defaults.showFPS
     }
     
+    override func viewDidDisappear()
+    {
+        super.viewDidDisappear()
+        
+        self.playing = false
+        CVDisplayLinkStop(displayLink)
+    }
+    
     // TODO: Clean up
     func updateLabel(fps: Double)
     {
@@ -244,11 +252,5 @@ class MainViewController: NSViewController
         })
         
         return urls ?? []
-    }
-    
-    deinit
-    {
-        self.playing = false
-        CVDisplayLinkStop(displayLink)
     }
 }
