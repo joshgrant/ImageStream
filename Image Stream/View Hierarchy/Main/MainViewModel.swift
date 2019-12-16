@@ -15,17 +15,37 @@ class MainViewModel
     
     // MARK: - Variables
     
-    var currentImage: Int
+    private var currentImage: Int
     var images: [Image]
     
     // MARK: - Initialization
     
-    init() {
+    init()
+    {
         currentImage = 0
         images = []
     }
     
     // MARK: - Functions
+    
+    func image(forward: Bool) -> Image
+    {
+        currentImage += forward ? 1 : -1
+        normalizeCurrentImage() // Not functional...
+        return images[currentImage]
+    }
+    
+    private func normalizeCurrentImage()
+    {
+        if currentImage >= images.count
+        {
+            currentImage = 0
+        }
+        else if currentImage < 0
+        {
+            currentImage = images.count
+        }
+    }
     
     static func loadImages(from urls: [URL], progress: @escaping ProgressHandler, completion: @escaping CompletionHandler)
     {
@@ -43,7 +63,7 @@ class MainViewModel
             
             if Defaults.analyzeFaces
             {
-                ImageAnalyzer.analyzeForFacialLanmarks(image: image) { faces in
+                Image.analyzeForFacialLanmarks(image: image) { faces in
                     images.append(Image(image: image, faces: faces))
                     current += 1
                     progress(Double(current))

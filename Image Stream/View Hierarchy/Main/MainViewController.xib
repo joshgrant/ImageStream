@@ -9,54 +9,102 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="578" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="hWj-7j-MVg">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="8Mv-yP-WEA"/>
-                </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fgi-dR-ERr">
-                    <rect key="frame" x="449" y="20" width="13" height="15"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="N8T-UJ-lxg">
-                        <font key="font" size="13" name="SFMono-Bold"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="CRf-fL-z3n" customClass="CenteringImageView" customModule="Image_Stream" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="578" height="272"/>
+                </customView>
                 <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-yz-scu">
-                    <rect key="frame" x="20" y="49" width="440" height="174"/>
+                    <rect key="frame" x="20" y="126" width="538" height="20"/>
                 </progressIndicator>
-                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-yz-inA">
-                    <rect key="frame" x="18" y="18" width="427" height="24"/>
-                    <sliderCell key="cell" state="on" alignment="left" maxValue="60" doubleValue="59.999999999999993" tickMarkPosition="above" numberOfTickMarks="12" sliderType="linear" id="7gl-Ow-nE2"/>
-                    <connections>
-                        <action selector="idealFPSSliderValueChanged:" target="FjZ-GB-jl4" id="Ked-2M-UYJ"/>
-                    </connections>
-                </slider>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ibc-gp-x5t">
+                    <rect key="frame" x="20" y="20" width="538" height="22"/>
+                    <subviews>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b7r-CG-DgM">
+                            <rect key="frame" x="0.0" y="-1" width="33" height="23"/>
+                            <buttonCell key="cell" type="roundTextured" title="􀊊" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fJY-zg-gvc">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="backButtonDidTouchUpInside:" target="FjZ-GB-jl4" id="eeX-8U-FBK"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gOB-kW-JfS">
+                            <rect key="frame" x="45" y="-1" width="35" height="23"/>
+                            <buttonCell key="cell" type="roundTextured" title="􀊈" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N7a-Re-z0w">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="playPauseButtonDidTouchUpInside:" target="FjZ-GB-jl4" id="hTP-6z-OLs"/>
+                            </connections>
+                        </button>
+                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xxv-ow-BzA">
+                            <rect key="frame" x="92" y="-1" width="33" height="23"/>
+                            <buttonCell key="cell" type="roundTextured" title="􀊌" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dve-pJ-ukh">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="forwardButtonDidTouchUpInside:" target="FjZ-GB-jl4" id="uDW-5x-E59"/>
+                            </connections>
+                        </button>
+                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-yz-inA">
+                            <rect key="frame" x="135" y="-2" width="384" height="24"/>
+                            <sliderCell key="cell" state="on" alignment="left" maxValue="60" doubleValue="59.999999999999993" tickMarkPosition="above" numberOfTickMarks="12" sliderType="linear" id="7gl-Ow-nE2"/>
+                            <connections>
+                                <action selector="idealFPSSliderValueChanged:" target="FjZ-GB-jl4" id="Ked-2M-UYJ"/>
+                            </connections>
+                        </slider>
+                        <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fgi-dR-ERr">
+                            <rect key="frame" x="527" y="4" width="13" height="15"/>
+                            <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="N8T-UJ-lxg">
+                                <font key="font" size="13" name="SFMono-Bold"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
+                <constraint firstItem="Ibc-gp-x5t" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="3dT-ne-de0"/>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="8pD-fb-UOq"/>
-                <constraint firstItem="sfT-yz-inA" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="9uM-iU-kMy"/>
-                <constraint firstItem="sfT-yz-inA" firstAttribute="top" secondItem="uN0-yz-scu" secondAttribute="bottom" constant="8" symbolic="YES" id="F5g-Ch-UaP"/>
-                <constraint firstAttribute="trailing" secondItem="hWj-7j-MVg" secondAttribute="trailing" id="TXo-Ku-7TM"/>
-                <constraint firstAttribute="bottom" secondItem="fgi-dR-ERr" secondAttribute="bottom" constant="20" symbolic="YES" id="VPN-sQ-aS3"/>
-                <constraint firstItem="hWj-7j-MVg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="YRM-Ag-PzO"/>
-                <constraint firstItem="hWj-7j-MVg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="cFC-eP-BcC"/>
-                <constraint firstItem="fgi-dR-ERr" firstAttribute="leading" secondItem="sfT-yz-inA" secondAttribute="trailing" constant="8" symbolic="YES" id="iWT-8G-Avc"/>
-                <constraint firstAttribute="trailing" secondItem="fgi-dR-ERr" secondAttribute="trailing" constant="20" symbolic="YES" id="knW-Wq-zih"/>
-                <constraint firstAttribute="bottom" secondItem="hWj-7j-MVg" secondAttribute="bottom" id="ntN-dA-ITf"/>
+                <constraint firstAttribute="trailing" secondItem="CRf-fL-z3n" secondAttribute="trailing" id="GZ7-ln-gAQ"/>
+                <constraint firstItem="CRf-fL-z3n" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="PWs-io-Ao3"/>
+                <constraint firstAttribute="bottom" secondItem="Ibc-gp-x5t" secondAttribute="bottom" constant="20" symbolic="YES" id="UN7-9c-qEf"/>
+                <constraint firstAttribute="bottom" secondItem="CRf-fL-z3n" secondAttribute="bottom" id="n7C-SW-Eoa"/>
                 <constraint firstAttribute="trailing" secondItem="uN0-yz-scu" secondAttribute="trailing" constant="20" symbolic="YES" id="olU-Ol-2MU"/>
+                <constraint firstItem="CRf-fL-z3n" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="twb-Js-Nxf"/>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="wqk-OM-qTG"/>
-                <constraint firstAttribute="bottom" secondItem="sfT-yz-inA" secondAttribute="bottom" constant="20" symbolic="YES" id="zlX-C5-esX"/>
+                <constraint firstAttribute="trailing" secondItem="Ibc-gp-x5t" secondAttribute="trailing" constant="20" symbolic="YES" id="xOs-d9-uDF"/>
             </constraints>
             <point key="canvasLocation" x="141" y="154"/>
         </customView>
         <viewController id="FjZ-GB-jl4" customClass="MainViewController" customModule="Image_Stream" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="b7r-CG-DgM" id="hUP-BH-aW5"/>
+                <outlet property="forwardButton" destination="Xxv-ow-BzA" id="8Vf-ow-4Mn"/>
                 <outlet property="fpsLabel" destination="fgi-dR-ERr" id="xeS-T9-Gvz"/>
                 <outlet property="idealFPSSlider" destination="sfT-yz-inA" id="ic5-6V-xHc"/>
-                <outlet property="imageView" destination="hWj-7j-MVg" id="MH1-1n-XMJ"/>
+                <outlet property="imageView" destination="CRf-fL-z3n" id="al2-Xm-PZI"/>
+                <outlet property="playPauseButton" destination="gOB-kW-JfS" id="o5A-8D-rAq"/>
                 <outlet property="progressBar" destination="uN0-yz-scu" id="9dL-qm-z5H"/>
                 <outlet property="view" destination="c22-O7-iKe" id="SjF-Su-sl6"/>
             </connections>

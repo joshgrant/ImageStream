@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0367957223A3E2220060C166 /* CenteringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367957123A3E2220060C166 /* CenteringImageView.swift */; };
 		0389A3BC23A20F49001CF7EA /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389A3BB23A20F49001CF7EA /* CGRect+Extensions.swift */; };
 		0389A3C323A21AB8001CF7EA /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389A3C223A21AB8001CF7EA /* MainWindowController.swift */; };
 		0389A3C523A21AC1001CF7EA /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389A3C423A21AC1001CF7EA /* PreferencesWindowController.swift */; };
@@ -21,11 +22,11 @@
 		03B86A6123A17B6E009AB9E7 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6023A17B6E009AB9E7 /* Defaults.swift */; };
 		03B86A6323A17D78009AB9E7 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6223A17D78009AB9E7 /* MainViewModel.swift */; };
 		03B86A6523A17DC0009AB9E7 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6423A17DC0009AB9E7 /* Image.swift */; };
-		03B86A6723A17F81009AB9E7 /* ImageAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6623A17F81009AB9E7 /* ImageAnalyzer.swift */; };
 		03B86A6B23A1829D009AB9E7 /* NSImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6A23A1829D009AB9E7 /* NSImage+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0367957123A3E2220060C166 /* CenteringImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringImageView.swift; sourceTree = "<group>"; };
 		0389A3BB23A20F49001CF7EA /* CGRect+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		0389A3C223A21AB8001CF7EA /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		0389A3C423A21AC1001CF7EA /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -43,7 +44,6 @@
 		03B86A6023A17B6E009AB9E7 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		03B86A6223A17D78009AB9E7 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		03B86A6423A17DC0009AB9E7 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		03B86A6623A17F81009AB9E7 /* ImageAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAnalyzer.swift; sourceTree = "<group>"; };
 		03B86A6A23A1829D009AB9E7 /* NSImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,11 +130,11 @@
 				03B86A2B23A17963009AB9E7 /* AppDelegate.swift */,
 				03B86A6023A17B6E009AB9E7 /* Defaults.swift */,
 				03B86A6423A17DC0009AB9E7 /* Image.swift */,
-				03B86A6623A17F81009AB9E7 /* ImageAnalyzer.swift */,
 				0389A3C023A21A77001CF7EA /* Extensions */,
 				03B86A3223A17964009AB9E7 /* MainMenu.xib */,
 				0389A3C123A21A89001CF7EA /* Supporting Files */,
 				0389A3BD23A21A55001CF7EA /* View Hierarchy */,
+				0367957123A3E2220060C166 /* CenteringImageView.swift */,
 			);
 			path = "Image Stream";
 			sourceTree = "<group>";
@@ -211,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0367957223A3E2220060C166 /* CenteringImageView.swift in Sources */,
 				03B86A6523A17DC0009AB9E7 /* Image.swift in Sources */,
 				0389A3C523A21AC1001CF7EA /* PreferencesWindowController.swift in Sources */,
 				0389A3BC23A20F49001CF7EA /* CGRect+Extensions.swift in Sources */,
@@ -222,7 +223,6 @@
 				03B86A6123A17B6E009AB9E7 /* Defaults.swift in Sources */,
 				03B86A5D23A179EF009AB9E7 /* PreferencesViewController.swift in Sources */,
 				03B86A6323A17D78009AB9E7 /* MainViewModel.swift in Sources */,
-				03B86A6723A17F81009AB9E7 /* ImageAnalyzer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

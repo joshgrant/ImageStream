@@ -12,11 +12,48 @@ import Vision
 class Image
 {
     var image: NSImage
+    var cachedImage: NSImage?
     var faces: [VNFaceObservation]
+    
+    /// The size is the default size of the image in pixels
+    var size: CGSize
+    {
+        return image.representations.first?.size ?? .zero
+    }
+    
+    /// The bounding box is relative to the size of the image
+    var boundingBox: CGRect
+    {
+        return faces.first?.boundingBox ?? .zero
+    }
     
     init(image: NSImage, faces: [VNFaceObservation] = [])
     {
         self.image = image
         self.faces = faces
+    }
+    
+    static func analyzeForFacialLanmarks(image: NSImage, completion: @escaping (([VNFaceObservation]) -> Void))
+    {
+        let request = VNDetectFaceLandmarksRequest { (request, error) in
+            if let error = error {
+                // Could just return an empty array here...
+                fatalError(error.localizedDescription)
+            }
+            
+            guard let observations = request.results as? [VNFaceObservation] else { fatalError() }
+            
+            completion(observations)
+        }
+        
+        guard let cgImage = image.cgImage else {
+            fatalError("Failed to convert an image to a CGImage.")
+        }
+        
+        let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        
+        DispatchQueue.global(qos: .default).async {
+            try? imageRequestHandler.perform([request])
+        }
     }
 }

@@ -39,6 +39,7 @@ class MainViewController: NSViewController
     
     var viewModel: MainViewModel = MainViewModel()
     var readyForUpdate: Bool = true
+    var playing: Bool = false
     
     var idealFPS: Int = 100
     var frames: Int = 0
@@ -88,10 +89,13 @@ class MainViewController: NSViewController
     
     // MARK: Interface outlets
     
-    @IBOutlet weak var imageView: NSImageView!
+    @IBOutlet weak var imageView: CenteringImageView!
     @IBOutlet weak var fpsLabel: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
     @IBOutlet weak var idealFPSSlider: NSSlider!
+    @IBOutlet weak var backButton: NSButton!
+    @IBOutlet weak var playPauseButton: NSButton!
+    @IBOutlet weak var forwardButton: NSButton!
     
     override func viewDidLoad()
     {
@@ -110,18 +114,14 @@ class MainViewController: NSViewController
     }
     
     // TODO: Clean up
-    func updateImage()
+    func updateImage(forward: Bool = true)
     {
+        guard self.viewModel.images.count > 0 else { return }
+        
+        let image = self.viewModel.image(forward: forward)
+        
         DispatchQueue.main.async {
-            self.imageView.image = self.viewModel.images[self.viewModel.currentImage].image
-            
-            self.viewModel.currentImage += 1
-            
-            if self.viewModel.currentImage >= self.viewModel.images.count // Maybe make this a constant
-            {
-                self.viewModel.currentImage = 0
-            }
-            
+            self.imageView.image = image
             self.frames += 1
             self.readyForUpdate = true
         }
@@ -132,6 +132,35 @@ class MainViewController: NSViewController
     @IBAction func idealFPSSliderValueChanged(_ sender: NSSlider)
     {
         self.idealFPS = Int(sender.doubleValue)
+    }
+    
+    @IBAction func playPauseButtonDidTouchUpInside(_ sender: NSButton)
+    {
+        if playing
+        {
+            playing = false
+            CVDisplayLinkStop(self.displayLink)
+        }
+        else
+        {    
+            // TODO: Reuse this
+            self.startTime = Date()
+            playing = true
+            CVDisplayLinkStart(self.displayLink)
+        }
+        
+        self.backButton.isEnabled = !playing
+        self.forwardButton.isEnabled = !playing
+    }
+    
+    @IBAction func backButtonDidTouchUpInside(_ sender: NSButton)
+    {
+        updateImage(forward: false)
+    }
+    
+    @IBAction func forwardButtonDidTouchUpInside(_ sender: NSButton)
+    {
+        updateImage()
     }
     
     @IBAction func open(_ sender: NSMenuItem)
@@ -161,7 +190,6 @@ class MainViewController: NSViewController
                 MainViewModel.loadImages(from: contents, progress: { current in
                     DispatchQueue.main.async { [weak self] in
                         self?.updateProgressBar(with: .updating(value: current, max: max))
-                        self?.progressBar.doubleValue = current
                     }
                 }, completion: { (images) in
                     DispatchQueue.main.async { [weak self] in
@@ -170,6 +198,7 @@ class MainViewController: NSViewController
                         
                         // Start the timer
                         self?.startTime = Date()
+                        self?.playing = true
                         CVDisplayLinkStart(self!.displayLink)
                     }
                 })
@@ -204,9 +233,12 @@ class MainViewController: NSViewController
         let contents = try? FileManager.default.contentsOfDirectory(atPath: directory.path)
         
         let urls = contents?.compactMap({ component -> URL? in
-            if component.contains(".jpg") || component.contains(".png") {
+            if component.contains(".jpg") || component.contains(".png") || component.contains(".jpeg")
+            {
                 return directory.appendingPathComponent(component)
-            } else {
+            }
+            else
+            {
                 return nil
             }
         })
@@ -214,7 +246,9 @@ class MainViewController: NSViewController
         return urls ?? []
     }
     
-    deinit {
+    deinit
+    {
+        self.playing = false
         CVDisplayLinkStop(displayLink)
     }
 }
