@@ -32,5 +32,7 @@
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Image Stream can stream your photos from your photos library.</string>
 </dict>
 </plist>

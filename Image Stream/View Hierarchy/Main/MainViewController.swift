@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Photos
 
 enum ProgressBarState
 {
@@ -44,6 +45,10 @@ class MainViewController: NSViewController
     var idealFPS: Int = 100
     var frames: Int = 0
     var startTime: Date?
+    
+    lazy var imageManager: PHImageManager = {
+       return PHImageManager()
+    }()
     
     lazy var displayLinkCallback: CVDisplayLinkOutputCallback? = {
         let callback: CVDisplayLinkOutputCallback = { displayLink, inNow, inOutputTime, flagsIn, flagsOut, context -> CVReturn in
@@ -171,8 +176,40 @@ class MainViewController: NSViewController
         updateImage()
     }
     
+    @IBAction func chooseFromPhotos(_ sender: NSMenuItem)
+    {
+        print("CHOOSE")
+        
+        PHPhotoLibrary.shared().register(self)
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status
+            {
+            case .authorized:
+                print("AUTHORIZED")
+                
+                let allPhotosOptions = PHFetchOptions()
+                allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                // Probably create a strong reference to these...
+                let allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
+                let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+                let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+                
+            case .denied:
+                print("DENIED")
+            case .notDetermined:
+                print("NOT DETERMINED")
+            case .restricted:
+                print("RESTRICTED")
+            }
+        }
+        
+//        imageManager.requestImage(for: <#T##PHAsset#>, targetSize: <#T##CGSize#>, contentMode: <#T##PHImageContentMode#>, options: <#T##PHImageRequestOptions?#>, resultHandler: <#T##(NSImage?, [AnyHashable : Any]?) -> Void#>)
+//        PHPhotoLibrary
+    }
+    
     @IBAction func open(_ sender: NSMenuItem)
     {
+        print("OPEN")
         let panel = NSOpenPanel()
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
@@ -252,5 +289,12 @@ class MainViewController: NSViewController
         })
         
         return urls ?? []
+    }
+}
+
+extension MainViewController: PHPhotoLibraryAvailabilityObserver
+{
+    func photoLibraryDidBecomeUnavailable(_ photoLibrary: PHPhotoLibrary) {
+        print("Photos is unavailable")
     }
 }
