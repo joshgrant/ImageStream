@@ -43,7 +43,7 @@ class MainViewModel
         }
         else if currentImage < 0
         {
-            currentImage = images.count
+            currentImage = images.count - 1
         }
     }
     

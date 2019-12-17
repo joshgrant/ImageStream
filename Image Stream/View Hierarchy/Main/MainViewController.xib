@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,9 +12,10 @@
             <rect key="frame" x="0.0" y="0.0" width="578" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="CRf-fL-z3n" customClass="CenteringImageView" customModule="Image_Stream" customModuleProvider="target">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K3t-Ek-6lO">
                     <rect key="frame" x="0.0" y="0.0" width="578" height="272"/>
-                </customView>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="56n-hF-jFn"/>
+                </imageView>
                 <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-yz-scu">
                     <rect key="frame" x="20" y="126" width="538" height="20"/>
                 </progressIndicator>
@@ -86,12 +87,12 @@
             <constraints>
                 <constraint firstItem="Ibc-gp-x5t" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="3dT-ne-de0"/>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="8pD-fb-UOq"/>
-                <constraint firstAttribute="trailing" secondItem="CRf-fL-z3n" secondAttribute="trailing" id="GZ7-ln-gAQ"/>
-                <constraint firstItem="CRf-fL-z3n" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="PWs-io-Ao3"/>
+                <constraint firstItem="K3t-Ek-6lO" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="QBn-l2-gth"/>
                 <constraint firstAttribute="bottom" secondItem="Ibc-gp-x5t" secondAttribute="bottom" constant="20" symbolic="YES" id="UN7-9c-qEf"/>
-                <constraint firstAttribute="bottom" secondItem="CRf-fL-z3n" secondAttribute="bottom" id="n7C-SW-Eoa"/>
+                <constraint firstItem="K3t-Ek-6lO" firstAttribute="height" secondItem="c22-O7-iKe" secondAttribute="height" id="jMH-Vc-zZL"/>
+                <constraint firstItem="K3t-Ek-6lO" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="jpx-u6-lFt"/>
                 <constraint firstAttribute="trailing" secondItem="uN0-yz-scu" secondAttribute="trailing" constant="20" symbolic="YES" id="olU-Ol-2MU"/>
-                <constraint firstItem="CRf-fL-z3n" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="twb-Js-Nxf"/>
+                <constraint firstItem="K3t-Ek-6lO" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="rxA-US-bJb"/>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="wqk-OM-qTG"/>
                 <constraint firstAttribute="trailing" secondItem="Ibc-gp-x5t" secondAttribute="trailing" constant="20" symbolic="YES" id="xOs-d9-uDF"/>
             </constraints>
@@ -103,7 +104,7 @@
                 <outlet property="forwardButton" destination="Xxv-ow-BzA" id="8Vf-ow-4Mn"/>
                 <outlet property="fpsLabel" destination="fgi-dR-ERr" id="xeS-T9-Gvz"/>
                 <outlet property="idealFPSSlider" destination="sfT-yz-inA" id="ic5-6V-xHc"/>
-                <outlet property="imageView" destination="CRf-fL-z3n" id="al2-Xm-PZI"/>
+                <outlet property="imageView" destination="K3t-Ek-6lO" id="Bo9-b6-oFC"/>
                 <outlet property="playPauseButton" destination="gOB-kW-JfS" id="o5A-8D-rAq"/>
                 <outlet property="progressBar" destination="uN0-yz-scu" id="9dL-qm-z5H"/>
                 <outlet property="view" destination="c22-O7-iKe" id="SjF-Su-sl6"/>

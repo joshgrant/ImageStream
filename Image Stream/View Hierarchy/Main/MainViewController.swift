@@ -94,7 +94,7 @@ class MainViewController: NSViewController
     
     // MARK: Interface outlets
     
-    @IBOutlet weak var imageView: CenteringImageView!
+    @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var fpsLabel: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
     @IBOutlet weak var idealFPSSlider: NSSlider!
@@ -129,12 +129,12 @@ class MainViewController: NSViewController
     // TODO: Clean up
     func updateImage(forward: Bool = true)
     {
-        guard self.viewModel.images.count > 0 else { return }
-        
-        let image = self.viewModel.image(forward: forward)
-        
-        DispatchQueue.main.async {
-            self.imageView.image = image
+        DispatchQueue.main.sync {
+            guard self.viewModel.images.count > 0 else { return }
+            
+            let image = self.viewModel.image(forward: forward)
+            
+            self.imageView.analyzedImage = image
             self.frames += 1
             self.readyForUpdate = true
         }
@@ -222,13 +222,17 @@ class MainViewController: NSViewController
             case .OK:
                 panel.orderOut(self)
                 
-                self.updateProgressBar(with: .indeterminate)
+                DispatchQueue.main.async { [weak self] in
+                    self?.updateProgressBar(with: .indeterminate)
+                }
                 
                 guard let directory = panel.urls.first else { return }
                 
                 let contents = MainViewController.contentsOf(directory: directory)
                 
-                self.updateProgressBar(with: .empty)
+                DispatchQueue.main.async { [weak self] in
+                    self?.updateProgressBar(with: .empty)
+                }
                 
                 let max = Double(contents.count)
                 

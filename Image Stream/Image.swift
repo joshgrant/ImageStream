@@ -9,11 +9,36 @@
 import Cocoa
 import Vision
 
+extension CGSize: Hashable
+{
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.width)
+        hasher.combine(self.height)
+    }
+}
+
+extension CGPoint: Hashable
+{
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.x)
+        hasher.combine(self.y)
+    }
+}
+
+extension CGRect: Hashable
+{
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.origin)
+        hasher.combine(self.size)
+    }
+}
+
 class Image
 {
     var image: NSImage
     /// The key is the image scale... so we can resize it 
-    var cachedImage: [CGFloat: NSImage] = [:]
+    var cachedImage: [CGRect: NSImage] = [:]
+    var cachedFrame: [CGRect: CGRect] = [:]
     var faces: [VNFaceObservation]
     
     /// The size is the default size of the image in pixels
@@ -37,6 +62,7 @@ class Image
     static func analyzeForFacialLanmarks(image: NSImage, completion: @escaping (([VNFaceObservation]) -> Void))
     {
         let request = VNDetectFaceLandmarksRequest { (request, error) in
+            
             if let error = error {
                 // Could just return an empty array here...
                 fatalError(error.localizedDescription)
