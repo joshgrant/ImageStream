@@ -9,18 +9,22 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="578" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="248" height="251"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K3t-Ek-6lO">
-                    <rect key="frame" x="0.0" y="0.0" width="578" height="272"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="56n-hF-jFn"/>
+                <imageView horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="K3t-Ek-6lO">
+                    <rect key="frame" x="74" y="76" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="b2M-Ev-i8t"/>
+                        <constraint firstAttribute="width" constant="100" id="fgs-wF-xP0"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="56n-hF-jFn"/>
                 </imageView>
                 <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-yz-scu">
-                    <rect key="frame" x="20" y="126" width="538" height="20"/>
+                    <rect key="frame" x="20" y="116" width="208" height="20"/>
                 </progressIndicator>
                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ibc-gp-x5t">
-                    <rect key="frame" x="20" y="20" width="538" height="22"/>
+                    <rect key="frame" x="20" y="20" width="208" height="22"/>
                     <subviews>
                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b7r-CG-DgM">
                             <rect key="frame" x="0.0" y="-1" width="33" height="23"/>
@@ -53,14 +57,14 @@
                             </connections>
                         </button>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-yz-inA">
-                            <rect key="frame" x="135" y="-2" width="384" height="24"/>
+                            <rect key="frame" x="135" y="-2" width="54" height="24"/>
                             <sliderCell key="cell" state="on" alignment="left" maxValue="60" doubleValue="59.999999999999993" tickMarkPosition="above" numberOfTickMarks="12" sliderType="linear" id="7gl-Ow-nE2"/>
                             <connections>
                                 <action selector="idealFPSSliderValueChanged:" target="FjZ-GB-jl4" id="Ked-2M-UYJ"/>
                             </connections>
                         </slider>
                         <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fgi-dR-ERr">
-                            <rect key="frame" x="527" y="4" width="13" height="15"/>
+                            <rect key="frame" x="197" y="4" width="13" height="15"/>
                             <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="N8T-UJ-lxg">
                                 <font key="font" size="13" name="SFMono-Bold"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -89,14 +93,12 @@
                 <constraint firstItem="uN0-yz-scu" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="8pD-fb-UOq"/>
                 <constraint firstItem="K3t-Ek-6lO" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="QBn-l2-gth"/>
                 <constraint firstAttribute="bottom" secondItem="Ibc-gp-x5t" secondAttribute="bottom" constant="20" symbolic="YES" id="UN7-9c-qEf"/>
-                <constraint firstItem="K3t-Ek-6lO" firstAttribute="height" secondItem="c22-O7-iKe" secondAttribute="height" id="jMH-Vc-zZL"/>
-                <constraint firstItem="K3t-Ek-6lO" firstAttribute="width" secondItem="c22-O7-iKe" secondAttribute="width" id="jpx-u6-lFt"/>
                 <constraint firstAttribute="trailing" secondItem="uN0-yz-scu" secondAttribute="trailing" constant="20" symbolic="YES" id="olU-Ol-2MU"/>
                 <constraint firstItem="K3t-Ek-6lO" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="rxA-US-bJb"/>
                 <constraint firstItem="uN0-yz-scu" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="wqk-OM-qTG"/>
                 <constraint firstAttribute="trailing" secondItem="Ibc-gp-x5t" secondAttribute="trailing" constant="20" symbolic="YES" id="xOs-d9-uDF"/>
             </constraints>
-            <point key="canvasLocation" x="141" y="154"/>
+            <point key="canvasLocation" x="119" y="241.5"/>
         </customView>
         <viewController id="FjZ-GB-jl4" customClass="MainViewController" customModule="Image_Stream" customModuleProvider="target">
             <connections>
@@ -104,7 +106,11 @@
                 <outlet property="forwardButton" destination="Xxv-ow-BzA" id="8Vf-ow-4Mn"/>
                 <outlet property="fpsLabel" destination="fgi-dR-ERr" id="xeS-T9-Gvz"/>
                 <outlet property="idealFPSSlider" destination="sfT-yz-inA" id="ic5-6V-xHc"/>
+                <outlet property="imageHeightConstraint" destination="b2M-Ev-i8t" id="t2l-pX-gd6"/>
                 <outlet property="imageView" destination="K3t-Ek-6lO" id="Bo9-b6-oFC"/>
+                <outlet property="imageWidthConstraint" destination="fgs-wF-xP0" id="nsw-Ym-cBk"/>
+                <outlet property="imageXConstraint" destination="QBn-l2-gth" id="eam-IM-kMb"/>
+                <outlet property="imageYConstraint" destination="rxA-US-bJb" id="w0M-D5-Tvk"/>
                 <outlet property="playPauseButton" destination="gOB-kW-JfS" id="o5A-8D-rAq"/>
                 <outlet property="progressBar" destination="uN0-yz-scu" id="9dL-qm-z5H"/>
                 <outlet property="view" destination="c22-O7-iKe" id="SjF-Su-sl6"/>

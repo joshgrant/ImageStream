@@ -44,13 +44,14 @@ class Image
     /// The size is the default size of the image in pixels
     var size: CGSize
     {
-        return image.representations.first?.size ?? .zero
+        guard let cgImage = image.cgImage else { return .zero }
+        return CGSize(width: cgImage.width, height: cgImage.height)
     }
     
     /// The bounding box is relative to the size of the image
     var boundingBox: CGRect
     {
-        return faces.first?.boundingBox ?? .zero
+        return faces.first!.boundingBox
     }
     
     init(image: NSImage, faces: [VNFaceObservation] = [])

@@ -42,9 +42,12 @@ class MainViewController: NSViewController
     var readyForUpdate: Bool = true
     var playing: Bool = false
     
-    var idealFPS: Int = 100
+    var idealFPS: Int = 15
     var frames: Int = 0
     var startTime: Date?
+    var idealSize: CGFloat = 450
+    var verticalOffset: CGFloat = 0
+    var scrollDelta: CGFloat = 0
     
     lazy var imageManager: PHImageManager = {
        return PHImageManager()
@@ -102,6 +105,11 @@ class MainViewController: NSViewController
     @IBOutlet weak var playPauseButton: NSButton!
     @IBOutlet weak var forwardButton: NSButton!
     
+    @IBOutlet weak var imageXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -129,18 +137,106 @@ class MainViewController: NSViewController
     // TODO: Clean up
     func updateImage(forward: Bool = true)
     {
-        DispatchQueue.main.sync {
+        // This crashes when sync
+        DispatchQueue.main.async {
             guard self.viewModel.images.count > 0 else { return }
             
             let image = self.viewModel.image(forward: forward)
             
-            self.imageView.analyzedImage = image
+            guard let (origin, size) = self.imageConstraints(for: image, in: self.view.frame) else {
+                self.readyForUpdate = true
+                return
+            }
+            
+            self.imageView.image = image.image
+            
+            self.imageWidthConstraint.constant = size.width
+            self.imageHeightConstraint.constant = size.height
+            self.imageXConstraint.constant = origin.x
+            self.imageYConstraint.constant = origin.y
+            self.view.layoutSubtreeIfNeeded()
+            
             self.frames += 1
             self.readyForUpdate = true
         }
     }
     
+    func imageConstraints(for image: Image, in rect: CGRect) -> (CGPoint, CGSize)?
+    {
+        if Defaults.centerOnImage
+        {
+            let imageSize = image.image.size
+            let imageAspectRatio = imageSize.width / imageSize.height
+            let rectAspectRatio = rect.width / rect.height
+            
+            var scaleFactor: CGFloat = 1
+            
+            // Should we scale down?
+            if imageSize.width > rect.width || imageSize.height > rect.height
+            {
+                if imageAspectRatio < rectAspectRatio
+                {
+                    scaleFactor = rect.height / imageSize.height
+                }
+                else
+                {
+                    scaleFactor = rect.width / imageSize.width
+                }
+            }
+            
+            let scaledImageSize = CGSize(width: imageSize.width * scaleFactor, height: imageSize.height * scaleFactor)
+            
+            let offset = CGPoint(x: rect.center.x - scaledImageSize.width / 2,
+                                 y: rect.center.y - scaledImageSize.height / 2)
+            
+            return (offset, scaledImageSize)
+        }
+        else if Defaults.centerOnFace
+        {
+            let imageSize = image.size
+            let boundingBox = image.boundingBox
+            
+            let fullBoundingBox = CGRect(x: boundingBox.origin.x * imageSize.width,
+                                         y: boundingBox.origin.y * imageSize.height,
+                                         width: boundingBox.width * imageSize.width,
+                                         height: boundingBox.height * imageSize.height)
+            
+            let scaleFactor = idealSize / fullBoundingBox.width
+            
+            let scaledImageCenter = CGPoint(x: (imageSize.width / 2) * scaleFactor,
+                                            y: (imageSize.height / 2) * scaleFactor)
+            let scaledBoxCenter = CGPoint(x: (fullBoundingBox.origin.x + fullBoundingBox.width / 2) * scaleFactor,
+                                          y: (fullBoundingBox.origin.y + fullBoundingBox.height / 2) * scaleFactor)
+            
+            let newSize = CGSize(width: imageSize.width * scaleFactor,
+                                 height: imageSize.height * scaleFactor)
+            
+            // LERP between 0 and (rect.height / 6)
+            // The value is based on the scrollDelta.
+            // When the scroll delta is 0 (ideal size), the value should be 0
+            // When the scroll delta is < 0, the value should be closer to rect.height / 6
+            // We set scroll delta max to 100, it's arbitrary
+            let maxOffset = (rect.height / 6)
+            let percent: CGFloat = (scrollDelta / 500)
+            let newVerticalOffset = min(max(maxOffset - percent * maxOffset, 0), maxOffset)
+            
+            // Why not multiply by greater than 1????
+            let offset = CGPoint(x: (image.size.width / 2 - (fullBoundingBox.origin.x + fullBoundingBox.width / 2)) * scaleFactor,
+                                 y: -(image.size.height / 2 - (fullBoundingBox.origin.y + fullBoundingBox.height / 2)) * scaleFactor - newVerticalOffset)
+            
+            return (offset, newSize)
+        }
+        
+        // TODO: We should handle this case...
+        return nil
+    }
+    
     // MARK: - Functions
+    
+    override func scrollWheel(with event: NSEvent) {
+        idealSize += event.scrollingDeltaY
+        scrollDelta += event.scrollingDeltaY
+    }
     
     @IBAction func idealFPSSliderValueChanged(_ sender: NSSlider)
     {

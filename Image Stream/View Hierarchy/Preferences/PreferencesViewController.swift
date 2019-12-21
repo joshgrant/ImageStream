@@ -35,11 +35,17 @@ class PreferencesViewController: NSViewController
     @IBAction func centerOnImage(sender: NSButton)
     {
         Defaults.centerOnImage = sender.boolState
+        
+        Defaults.centerOnFace = !sender.boolState
+        centerOnFaceCheckbox.boolState = Defaults.centerOnFace
     }
     
     @IBAction func centerOnFace(sender: NSButton)
     {
         Defaults.centerOnFace = sender.boolState
+        
+        Defaults.centerOnImage = !sender.boolState
+        centerOnImageCheckbox.boolState = Defaults.centerOnImage
     }
     
     @IBAction func analyzeFaces(sender: NSButton)
