@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0360036623AE92AC00963AD0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0360036523AE92AC00963AD0 /* MainView.swift */; };
 		0367957223A3E2220060C166 /* CenteringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367957123A3E2220060C166 /* CenteringImageView.swift */; };
 		0389A3BC23A20F49001CF7EA /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389A3BB23A20F49001CF7EA /* CGRect+Extensions.swift */; };
 		0389A3C323A21AB8001CF7EA /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0389A3C223A21AB8001CF7EA /* MainWindowController.swift */; };
@@ -23,9 +24,13 @@
 		03B86A6323A17D78009AB9E7 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6223A17D78009AB9E7 /* MainViewModel.swift */; };
 		03B86A6523A17DC0009AB9E7 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6423A17DC0009AB9E7 /* Image.swift */; };
 		03B86A6B23A1829D009AB9E7 /* NSImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86A6A23A1829D009AB9E7 /* NSImage+Extensions.swift */; };
+		03F3FE8D2467CFDB003B420E /* ProgressBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE8C2467CFDB003B420E /* ProgressBarState.swift */; };
+		03F3FE8F2467CFF4003B420E /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE8E2467CFF4003B420E /* NSViewController+Extensions.swift */; };
+		03F3FE912467D0C0003B420E /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE902467D0C0003B420E /* FileManager+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0360036523AE92AC00963AD0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0367957123A3E2220060C166 /* CenteringImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringImageView.swift; sourceTree = "<group>"; };
 		0389A3BB23A20F49001CF7EA /* CGRect+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		0389A3C223A21AB8001CF7EA /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
@@ -45,6 +50,9 @@
 		03B86A6223A17D78009AB9E7 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		03B86A6423A17DC0009AB9E7 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		03B86A6A23A1829D009AB9E7 /* NSImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extensions.swift"; sourceTree = "<group>"; };
+		03F3FE8C2467CFDB003B420E /* ProgressBarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarState.swift; sourceTree = "<group>"; };
+		03F3FE8E2467CFF4003B420E /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
+		03F3FE902467D0C0003B420E /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,7 @@
 				03B86A6223A17D78009AB9E7 /* MainViewModel.swift */,
 				0389A3C223A21AB8001CF7EA /* MainWindowController.swift */,
 				03B86A5A23A179E5009AB9E7 /* MainViewController.xib */,
+				0360036523AE92AC00963AD0 /* MainView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -94,6 +103,8 @@
 				0389A3BB23A20F49001CF7EA /* CGRect+Extensions.swift */,
 				03B86A6A23A1829D009AB9E7 /* NSImage+Extensions.swift */,
 				0389A3C623A21E6E001CF7EA /* NSButton+Extensions.swift */,
+				03F3FE8E2467CFF4003B420E /* NSViewController+Extensions.swift */,
+				03F3FE902467D0C0003B420E /* FileManager+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -127,6 +138,7 @@
 		03B86A2A23A17963009AB9E7 /* Image Stream */ = {
 			isa = PBXGroup;
 			children = (
+				03F3FE8B2467CFCE003B420E /* Utilities */,
 				03B86A2B23A17963009AB9E7 /* AppDelegate.swift */,
 				03B86A6023A17B6E009AB9E7 /* Defaults.swift */,
 				03B86A6423A17DC0009AB9E7 /* Image.swift */,
@@ -137,6 +149,14 @@
 				0367957123A3E2220060C166 /* CenteringImageView.swift */,
 			);
 			path = "Image Stream";
+			sourceTree = "<group>";
+		};
+		03F3FE8B2467CFCE003B420E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				03F3FE8C2467CFDB003B420E /* ProgressBarState.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,15 +232,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				0367957223A3E2220060C166 /* CenteringImageView.swift in Sources */,
+				0360036623AE92AC00963AD0 /* MainView.swift in Sources */,
+				03F3FE8D2467CFDB003B420E /* ProgressBarState.swift in Sources */,
 				03B86A6523A17DC0009AB9E7 /* Image.swift in Sources */,
 				0389A3C523A21AC1001CF7EA /* PreferencesWindowController.swift in Sources */,
 				0389A3BC23A20F49001CF7EA /* CGRect+Extensions.swift in Sources */,
 				03B86A6B23A1829D009AB9E7 /* NSImage+Extensions.swift in Sources */,
 				03B86A5923A1799D009AB9E7 /* MainViewController.swift in Sources */,
 				0389A3C323A21AB8001CF7EA /* MainWindowController.swift in Sources */,
+				03F3FE8F2467CFF4003B420E /* NSViewController+Extensions.swift in Sources */,
 				03B86A2C23A17963009AB9E7 /* AppDelegate.swift in Sources */,
 				0389A3C723A21E6E001CF7EA /* NSButton+Extensions.swift in Sources */,
 				03B86A6123A17B6E009AB9E7 /* Defaults.swift in Sources */,
+				03F3FE912467D0C0003B420E /* FileManager+Extensions.swift in Sources */,
 				03B86A5D23A179EF009AB9E7 /* PreferencesViewController.swift in Sources */,
 				03B86A6323A17D78009AB9E7 /* MainViewModel.swift in Sources */,
 			);

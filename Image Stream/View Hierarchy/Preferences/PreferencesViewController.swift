@@ -22,7 +22,8 @@ class PreferencesViewController: NSViewController
 
     // MARK: - View lifecycle
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+	{
         super.viewDidLoad()
         
         centerOnImageCheckbox.boolState = Defaults.centerOnImage

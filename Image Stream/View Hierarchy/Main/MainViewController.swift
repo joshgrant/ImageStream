@@ -9,31 +9,6 @@
 import Cocoa
 import Photos
 
-enum ProgressBarState
-{
-    case hidden
-    case indeterminate
-    case empty
-    case updating(value: Double, max: Double)
-}
-
-extension NSViewController
-{
-    static func loadFromNib() -> Self
-    {
-        var objects: NSArray? = nil
-        let nibName = String(describing: self)
-        
-        Bundle.main.loadNibNamed(nibName, owner: nil, topLevelObjects: &objects)
-        
-        let content = objects?.first {
-            return $0 is Self
-        }
-        
-        return content as! Self
-    }
-}
-
 class MainViewController: NSViewController
 {
     // MARK: - Variables
@@ -117,6 +92,8 @@ class MainViewController: NSViewController
         progressBar.isHidden = true
         fpsLabel.isHidden = !Defaults.showFPS
     }
+    
+    override var acceptsFirstResponder: Bool { return true }
     
     override func viewDidDisappear()
     {
@@ -203,26 +180,13 @@ class MainViewController: NSViewController
             
             let scaleFactor = idealSize / fullBoundingBox.width
             
-            let scaledImageCenter = CGPoint(x: (imageSize.width / 2) * scaleFactor,
-                                            y: (imageSize.height / 2) * scaleFactor)
-            let scaledBoxCenter = CGPoint(x: (fullBoundingBox.origin.x + fullBoundingBox.width / 2) * scaleFactor,
-                                          y: (fullBoundingBox.origin.y + fullBoundingBox.height / 2) * scaleFactor)
-            
             let newSize = CGSize(width: imageSize.width * scaleFactor,
                                  height: imageSize.height * scaleFactor)
             
-            // LERP between 0 and (rect.height / 6)
-            // The value is based on the scrollDelta.
-            // When the scroll delta is 0 (ideal size), the value should be 0
-            // When the scroll delta is < 0, the value should be closer to rect.height / 6
-            // We set scroll delta max to 100, it's arbitrary
-            let maxOffset = (rect.height / 6)
-            let percent: CGFloat = (scrollDelta / 500)
-            let newVerticalOffset = min(max(maxOffset - percent * maxOffset, 0), maxOffset)
             
             // Why not multiply by greater than 1????
             let offset = CGPoint(x: (image.size.width / 2 - (fullBoundingBox.origin.x + fullBoundingBox.width / 2)) * scaleFactor,
-                                 y: -(image.size.height / 2 - (fullBoundingBox.origin.y + fullBoundingBox.height / 2)) * scaleFactor - newVerticalOffset)
+                                 y: -(image.size.height / 2 - (fullBoundingBox.origin.y + fullBoundingBox.height / 2)) * scaleFactor - verticalOffset)
             
             return (offset, newSize)
         }
@@ -233,9 +197,19 @@ class MainViewController: NSViewController
     
     // MARK: - Functions
     
-    override func scrollWheel(with event: NSEvent) {
+    override func scrollWheel(with event: NSEvent)
+    {
         idealSize += event.scrollingDeltaY
         scrollDelta += event.scrollingDeltaY
+    }
+    
+    override func keyDown(with event: NSEvent)
+    {
+        if event.characters == "-" {
+            verticalOffset += 1
+        } else if event.characters == "=" {
+            verticalOffset -= 1
+        }
     }
     
     @IBAction func idealFPSSliderValueChanged(_ sender: NSSlider)
@@ -287,9 +261,27 @@ class MainViewController: NSViewController
                 allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
                 // Probably create a strong reference to these...
                 let allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
-                let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+				let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
                 let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
                 
+                print(allPhotos)
+                print(smartAlbums.firstObject)
+                
+                smartAlbums.enumerateObjects { (collection, index, pointer) in
+                    print(collection)
+                    print(index)
+                    // Set this to true when we are done processing
+                    print(pointer)
+                }
+                
+//                for album in smartAlbums {
+//                    print(album)
+//                }
+                
+                print(userCollections)
+                
+                
+
             case .denied:
                 print("DENIED")
             case .notDetermined:
@@ -298,9 +290,6 @@ class MainViewController: NSViewController
                 print("RESTRICTED")
             }
         }
-        
-//        imageManager.requestImage(for: <#T##PHAsset#>, targetSize: <#T##CGSize#>, contentMode: <#T##PHImageContentMode#>, options: <#T##PHImageRequestOptions?#>, resultHandler: <#T##(NSImage?, [AnyHashable : Any]?) -> Void#>)
-//        PHPhotoLibrary
     }
     
     @IBAction func open(_ sender: NSMenuItem)
@@ -324,7 +313,7 @@ class MainViewController: NSViewController
                 
                 guard let directory = panel.urls.first else { return }
                 
-                let contents = MainViewController.contentsOf(directory: directory)
+				let contents = FileManager.default.imagesIn(directory: directory)
                 
                 DispatchQueue.main.async { [weak self] in
                     self?.updateProgressBar(with: .empty)
@@ -371,24 +360,6 @@ class MainViewController: NSViewController
             progressBar.maxValue = max
             progressBar.doubleValue = value
         }
-    }
-    
-    static func contentsOf(directory: URL) -> [URL]
-    {
-        let contents = try? FileManager.default.contentsOfDirectory(atPath: directory.path)
-        
-        let urls = contents?.compactMap({ component -> URL? in
-            if component.contains(".jpg") || component.contains(".png") || component.contains(".jpeg")
-            {
-                return directory.appendingPathComponent(component)
-            }
-            else
-            {
-                return nil
-            }
-        })
-        
-        return urls ?? []
     }
 }
 

@@ -9,8 +9,8 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-    
+class AppDelegate: NSObject, NSApplicationDelegate
+{
     lazy var mainController: MainWindowController = {
         let mainController = MainViewController.loadFromNib()
         let window = NSWindow(contentViewController: mainController)
@@ -25,11 +25,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return PreferencesWindowController(window: window)
     }()
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification)
+	{
         mainController.showWindow(self)
     }
     
-    func applicationWillTerminate(_ aNotification: Notification) {
+    func applicationWillTerminate(_ aNotification: Notification)
+	{
         // Insert code here to tear down your application
     }
     
