@@ -27,6 +27,10 @@
 		03F3FE8D2467CFDB003B420E /* ProgressBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE8C2467CFDB003B420E /* ProgressBarState.swift */; };
 		03F3FE8F2467CFF4003B420E /* NSViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE8E2467CFF4003B420E /* NSViewController+Extensions.swift */; };
 		03F3FE912467D0C0003B420E /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE902467D0C0003B420E /* FileManager+Extensions.swift */; };
+		03F3FE9A2467D207003B420E /* Image_Stream.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE982467D207003B420E /* Image_Stream.xcdatamodeld */; };
+		03F3FE9C2467D2FC003B420E /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE9B2467D2FC003B420E /* Image+Extensions.swift */; };
+		03F3FE9E2467D304003B420E /* Video+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE9D2467D304003B420E /* Video+Extensions.swift */; };
+		03F3FEA02467D35E003B420E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3FE9F2467D35E003B420E /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 		03F3FE8C2467CFDB003B420E /* ProgressBarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarState.swift; sourceTree = "<group>"; };
 		03F3FE8E2467CFF4003B420E /* NSViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Extensions.swift"; sourceTree = "<group>"; };
 		03F3FE902467D0C0003B420E /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
+		03F3FE992467D207003B420E /* Image_Stream.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Image_Stream.xcdatamodel; sourceTree = "<group>"; };
+		03F3FE9B2467D2FC003B420E /* Image+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extensions.swift"; sourceTree = "<group>"; };
+		03F3FE9D2467D304003B420E /* Video+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video+Extensions.swift"; sourceTree = "<group>"; };
+		03F3FE9F2467D35E003B420E /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +77,7 @@
 		0389A3BD23A21A55001CF7EA /* View Hierarchy */ = {
 			isa = PBXGroup;
 			children = (
+				0367957123A3E2220060C166 /* CenteringImageView.swift */,
 				0389A3BE23A21A60001CF7EA /* Main */,
 				0389A3BF23A21A63001CF7EA /* Preferences */,
 			);
@@ -146,7 +155,7 @@
 				03B86A3223A17964009AB9E7 /* MainMenu.xib */,
 				0389A3C123A21A89001CF7EA /* Supporting Files */,
 				0389A3BD23A21A55001CF7EA /* View Hierarchy */,
-				0367957123A3E2220060C166 /* CenteringImageView.swift */,
+				03F3FE972467D1F5003B420E /* Database */,
 			);
 			path = "Image Stream";
 			sourceTree = "<group>";
@@ -157,6 +166,17 @@
 				03F3FE8C2467CFDB003B420E /* ProgressBarState.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		03F3FE972467D1F5003B420E /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				03F3FE982467D207003B420E /* Image_Stream.xcdatamodeld */,
+				03F3FE9B2467D2FC003B420E /* Image+Extensions.swift */,
+				03F3FE9D2467D304003B420E /* Video+Extensions.swift */,
+				03F3FE9F2467D35E003B420E /* Database.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,7 +206,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Joshua Grant";
 				TargetAttributes = {
 					03B86A2723A17963009AB9E7 = {
@@ -238,14 +258,18 @@
 				0389A3C523A21AC1001CF7EA /* PreferencesWindowController.swift in Sources */,
 				0389A3BC23A20F49001CF7EA /* CGRect+Extensions.swift in Sources */,
 				03B86A6B23A1829D009AB9E7 /* NSImage+Extensions.swift in Sources */,
+				03F3FE9E2467D304003B420E /* Video+Extensions.swift in Sources */,
 				03B86A5923A1799D009AB9E7 /* MainViewController.swift in Sources */,
 				0389A3C323A21AB8001CF7EA /* MainWindowController.swift in Sources */,
+				03F3FE9C2467D2FC003B420E /* Image+Extensions.swift in Sources */,
+				03F3FE9A2467D207003B420E /* Image_Stream.xcdatamodeld in Sources */,
 				03F3FE8F2467CFF4003B420E /* NSViewController+Extensions.swift in Sources */,
 				03B86A2C23A17963009AB9E7 /* AppDelegate.swift in Sources */,
 				0389A3C723A21E6E001CF7EA /* NSButton+Extensions.swift in Sources */,
 				03B86A6123A17B6E009AB9E7 /* Defaults.swift in Sources */,
 				03F3FE912467D0C0003B420E /* FileManager+Extensions.swift in Sources */,
 				03B86A5D23A179EF009AB9E7 /* PreferencesViewController.swift in Sources */,
+				03F3FEA02467D35E003B420E /* Database.swift in Sources */,
 				03B86A6323A17D78009AB9E7 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Image Stream/Supporting Files/Image_Stream.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 685257RUQP;
@@ -402,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Image Stream/Supporting Files/Image_Stream.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 685257RUQP;
@@ -439,6 +465,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		03F3FE982467D207003B420E /* Image_Stream.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				03F3FE992467D207003B420E /* Image_Stream.xcdatamodel */,
+			);
+			currentVersion = 03F3FE992467D207003B420E /* Image_Stream.xcdatamodel */;
+			name = Image_Stream.xcdatamodeld;
+			path = ../Image_Stream.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 03B86A2023A17963009AB9E7 /* Project object */;
 }

@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ProcessedImage" representedClassName="ProcessedImage" syncable="YES" codeGenerationType="class">
+        <attribute name="cachedLarge" optional="YES" attributeType="URI"/>
+        <attribute name="cachedMedium" optional="YES" attributeType="URI"/>
+        <attribute name="cachedSmall" optional="YES" attributeType="URI"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="reference" optional="YES" attributeType="URI"/>
+        <attribute name="rotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="scale" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="video" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Video" inverseName="images" inverseEntity="Video"/>
+    </entity>
+    <entity name="Video" representedClassName="Video" syncable="YES" codeGenerationType="class">
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProcessedImage" inverseName="video" inverseEntity="ProcessedImage"/>
+    </entity>
+    <elements>
+        <element name="ProcessedImage" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="Video" positionX="-54" positionY="18" width="128" height="58"/>
+    </elements>
 </model>
