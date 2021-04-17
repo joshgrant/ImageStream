@@ -39,6 +39,14 @@ class PreferencesViewController: NSViewController
         
         Defaults.centerOnFace = !sender.boolState
         centerOnFaceCheckbox.boolState = Defaults.centerOnFace
+        
+        // If "center on image" is off, and "analyze faces is off"
+        if !sender.boolState && !Defaults.analyzeFaces
+        {
+            // We turn on "analyze faces"
+            Defaults.analyzeFaces = true
+            analyzeFacesCheckbox.boolState = true
+        }
     }
     
     @IBAction func centerOnFace(sender: NSButton)
@@ -47,11 +55,33 @@ class PreferencesViewController: NSViewController
         
         Defaults.centerOnImage = !sender.boolState
         centerOnImageCheckbox.boolState = Defaults.centerOnImage
+        
+        // If we're centering on face
+        if sender.boolState
+        {
+            // We want to make sure that "analyze faces" is turned on
+            Defaults.analyzeFaces = true
+            
+            // We also want to make sure that the UI is updated
+            analyzeFacesCheckbox.boolState = true
+        }
     }
     
     @IBAction func analyzeFaces(sender: NSButton)
     {
         Defaults.analyzeFaces = sender.boolState
+        
+        // If we turn off analyze faces
+        if !sender.boolState
+        {
+            // It should turn off "center on face"
+            Defaults.centerOnFace = false
+            centerOnFaceCheckbox.boolState = false
+            
+            // and it should turn on "center on image"
+            Defaults.centerOnImage = true
+            centerOnImageCheckbox.boolState = true
+        }
     }
     
     @IBAction func showFPS(sender: NSButton)

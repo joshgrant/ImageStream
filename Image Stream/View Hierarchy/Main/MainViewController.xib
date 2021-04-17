@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -9,11 +10,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="MainView" customModule="Image_Stream" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="245" height="251"/>
+            <rect key="frame" x="0.0" y="0.0" width="238" height="251"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="K3t-Ek-6lO">
-                    <rect key="frame" x="73" y="76" width="100" height="100"/>
+                    <rect key="frame" x="69" y="76" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="b2M-Ev-i8t"/>
                         <constraint firstAttribute="width" constant="100" id="fgs-wF-xP0"/>
@@ -21,14 +22,14 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="56n-hF-jFn"/>
                 </imageView>
                 <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-yz-scu">
-                    <rect key="frame" x="20" y="116" width="205" height="20"/>
+                    <rect key="frame" x="20" y="116" width="198" height="20"/>
                 </progressIndicator>
                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ibc-gp-x5t">
-                    <rect key="frame" x="20" y="20" width="205" height="22"/>
+                    <rect key="frame" x="20" y="20" width="198" height="20"/>
                     <subviews>
                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b7r-CG-DgM">
-                            <rect key="frame" x="-0.5" y="-1" width="33" height="23"/>
-                            <buttonCell key="cell" type="roundTextured" title="􀊊" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fJY-zg-gvc">
+                            <rect key="frame" x="-1" y="-2" width="31" height="23"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarRewindTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fJY-zg-gvc">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -37,8 +38,8 @@
                             </connections>
                         </button>
                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gOB-kW-JfS">
-                            <rect key="frame" x="43.5" y="-1" width="35" height="23"/>
-                            <buttonCell key="cell" type="roundTextured" title="􀊈" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N7a-Re-z0w">
+                            <rect key="frame" x="40" y="-2" width="35" height="23"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarPlayPauseTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N7a-Re-z0w">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -47,8 +48,8 @@
                             </connections>
                         </button>
                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xxv-ow-BzA">
-                            <rect key="frame" x="89.5" y="-1" width="33" height="23"/>
-                            <buttonCell key="cell" type="roundTextured" title="􀊌" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dve-pJ-ukh">
+                            <rect key="frame" x="85" y="-2" width="31" height="23"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarFastForwardTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dve-pJ-ukh">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -57,14 +58,14 @@
                             </connections>
                         </button>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-yz-inA">
-                            <rect key="frame" x="132" y="-2" width="54" height="24"/>
+                            <rect key="frame" x="125" y="-6" width="54" height="28"/>
                             <sliderCell key="cell" state="on" alignment="left" maxValue="60" doubleValue="59.999999999999993" tickMarkPosition="above" numberOfTickMarks="12" sliderType="linear" id="7gl-Ow-nE2"/>
                             <connections>
                                 <action selector="idealFPSSliderValueChanged:" target="FjZ-GB-jl4" id="Ked-2M-UYJ"/>
                             </connections>
                         </slider>
                         <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fgi-dR-ERr">
-                            <rect key="frame" x="194" y="4" width="13" height="15"/>
+                            <rect key="frame" x="187" y="3" width="13" height="15"/>
                             <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="N8T-UJ-lxg">
                                 <font key="font" size="13" name="SFMono-Bold"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -117,4 +118,9 @@
             </connections>
         </viewController>
     </objects>
+    <resources>
+        <image name="NSTouchBarFastForwardTemplate" width="19" height="12"/>
+        <image name="NSTouchBarPlayPauseTemplate" width="23" height="13"/>
+        <image name="NSTouchBarRewindTemplate" width="19" height="12"/>
+    </resources>
 </document>

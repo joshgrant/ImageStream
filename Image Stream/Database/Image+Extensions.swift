@@ -40,10 +40,7 @@ extension Image
 			
 			let scaledImageSize = CGSize(width: imageSize.width * scaleFactor, height: imageSize.height * scaleFactor)
 			
-			let offset = CGPoint(x: rect.center.x - scaledImageSize.width / 2,
-								 y: rect.center.y - scaledImageSize.height / 2)
-			
-			return (offset, scaledImageSize)
+            return (.zero, scaledImageSize)
 		}
 		else if Defaults.centerOnFace
 		{
