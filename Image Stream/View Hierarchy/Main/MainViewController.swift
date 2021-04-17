@@ -191,48 +191,50 @@ class MainViewController: NSViewController
     
     @IBAction func chooseFromPhotos(_ sender: NSMenuItem)
     {
-        print("CHOOSE")
-        
-        PHPhotoLibrary.shared().register(self)
-        PHPhotoLibrary.requestAuthorization { (status) in
-            switch status
-            {
-            case .authorized:
-                print("AUTHORIZED")
-                
-                let allPhotosOptions = PHFetchOptions()
-                allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                // Probably create a strong reference to these...
-                let allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
-				let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
-                let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-                
-                print(allPhotos)
-                print(smartAlbums.firstObject)
-                
-                smartAlbums.enumerateObjects { (collection, index, pointer) in
-                    print(collection)
-                    print(index)
-                    // Set this to true when we are done processing
-                    print(pointer)
-                }
-                
-//                for album in smartAlbums {
-//                    print(album)
+//        print("CHOOSE")
+//        
+//        PHPhotoLibrary.shared().register(self)
+//        PHPhotoLibrary.requestAuthorization { (status) in
+//            switch status
+//            {
+//            case .authorized:
+//                print("AUTHORIZED")
+//                
+//                let allPhotosOptions = PHFetchOptions()
+//                allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//                // Probably create a strong reference to these...
+//                let allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
+//				let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
+//                let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+//                
+////                print(allPhotos)
+////                print(smartAlbums.firstObject)
+//                
+//                smartAlbums.enumerateObjects { (collection, index, pointer) in
+//                    print(collection)
+//                    print(index)
+//                    // Set this to true when we are done processing
+//                    print(pointer)
 //                }
-                
-                print(userCollections)
-                
-                
-
-            case .denied:
-                print("DENIED")
-            case .notDetermined:
-                print("NOT DETERMINED")
-            case .restricted:
-                print("RESTRICTED")
-            }
-        }
+//                
+////                for album in smartAlbums {
+////                    print(album)
+////                }
+//                
+//                print(userCollections)
+//                
+//                
+//
+//            case .denied:
+//                print("DENIED")
+//            case .notDetermined:
+//                print("NOT DETERMINED")
+//            case .restricted:
+//                print("RESTRICTED")
+//            default:
+//                break
+//            }
+//        }
     }
     
     @IBAction func open(_ sender: NSMenuItem)
