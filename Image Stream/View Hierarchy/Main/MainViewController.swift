@@ -71,7 +71,7 @@ class MainViewController: NSViewController
     }()
     
     // MARK: Interface outlets
-    
+    @IBOutlet weak var mainView: MainView!
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var fpsLabel: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
@@ -91,6 +91,7 @@ class MainViewController: NSViewController
         
         progressBar.isHidden = true
         fpsLabel.isHidden = !Defaults.showFPS
+        mainView.delegate = self
     }
     
     override var acceptsFirstResponder: Bool { return true }
@@ -114,7 +115,7 @@ class MainViewController: NSViewController
     // TODO: Clean up
     func updateImage(forward: Bool = true)
     {
-        // This crashes when sync
+        // Must be "async" and not "sync"
         DispatchQueue.main.async {
             guard self.viewModel.images.count > 0 else { return }
             
@@ -239,7 +240,6 @@ class MainViewController: NSViewController
     
     @IBAction func open(_ sender: NSMenuItem)
     {
-        print("OPEN")
         let panel = NSOpenPanel()
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
@@ -258,33 +258,37 @@ class MainViewController: NSViewController
                 
                 guard let directory = panel.urls.first else { return }
                 
-				let contents = FileManager.default.imagesIn(directory: directory)
-                
-                DispatchQueue.main.async { [weak self] in
-                    self?.updateProgressBar(with: .empty)
-                }
-                
-                let max = Double(contents.count)
-                
-                MainViewModel.loadImages(from: contents, progress: { current in
-                    DispatchQueue.main.async { [weak self] in
-                        self?.updateProgressBar(with: .updating(value: current, max: max))
-                    }
-                }, completion: { (images) in
-                    DispatchQueue.main.async { [weak self] in
-                        self?.updateProgressBar(with: .hidden)
-                        self?.viewModel.images = images
-                        
-                        // Start the timer
-                        self?.startTime = Date()
-                        self?.playing = true
-                        CVDisplayLinkStart(self!.displayLink)
-                    }
-                })
+                self.loadImages(from: directory)
             default:
                 break
             }
         }
+    }
+    
+    func loadImages(from directory: URL) {
+        let contents = FileManager.default.imagesIn(directory: directory)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.updateProgressBar(with: .empty)
+        }
+        
+        let max = Double(contents.count)
+        
+        MainViewModel.loadImages(from: contents, progress: { current in
+            DispatchQueue.main.async { [weak self] in
+                self?.updateProgressBar(with: .updating(value: current, max: max))
+            }
+        }, completion: { (images) in
+            DispatchQueue.main.async { [weak self] in
+                self?.updateProgressBar(with: .hidden)
+                self?.viewModel.images = images
+                
+                // Start the timer
+                self?.startTime = Date()
+                self?.playing = true
+                CVDisplayLinkStart(self!.displayLink)
+            }
+        })
     }
     
     func updateProgressBar(with state: ProgressBarState)
@@ -312,5 +316,18 @@ extension MainViewController: PHPhotoLibraryAvailabilityObserver
 {
     func photoLibraryDidBecomeUnavailable(_ photoLibrary: PHPhotoLibrary) {
         print("Photos is unavailable")
+    }
+}
+
+extension MainViewController: MainViewDragDelegate
+{
+    func mainViewDidDrop(path: String) {
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.updateProgressBar(with: .indeterminate)
+        }
+        
+        let url = URL(fileURLWithPath: path)
+        loadImages(from: url)
     }
 }

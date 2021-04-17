@@ -8,27 +8,38 @@
 
 import Cocoa
 
+protocol MainViewDragDelegate: class
+{
+    func mainViewDidDrop(path: String)
+}
+
 class MainView: NSView
 {
+    // MARK: - Variables
+    
     override var acceptsFirstResponder: Bool { return true }
+    
+    weak var delegate: MainViewDragDelegate?
+    
+    // MARK: - Initialization
+    
+    required init?(coder: NSCoder)
+    {
+        super.init(coder: coder)
+        
+        self.wantsLayer = true
+        
+        registerForDraggedTypes([.fileURL])
+    }
     
     // MARK: - Drag and drop support
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        self.layer?.backgroundColor = NSColor.blue.cgColor
-        return NSDragOperation()
+        return .copy
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .link
-    }
-    
-    override func draggingExited(_ sender: NSDraggingInfo?) {
-        self.layer?.backgroundColor = NSColor.gray.cgColor
-    }
-    
-    override func draggingEnded(_ sender: NSDraggingInfo) {
-        self.layer?.backgroundColor = NSColor.gray.cgColor
+        return .copy
     }
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool
@@ -37,7 +48,7 @@ class MainView: NSView
               let path = pasteboard[0] as? String
         else { return false }
         
-        print("Path: \(path)")
+        delegate?.mainViewDidDrop(path: path)
         
         return true
     }

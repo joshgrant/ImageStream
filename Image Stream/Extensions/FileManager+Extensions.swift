@@ -13,16 +13,18 @@ extension FileManager
 	func imagesIn(directory: URL) -> [URL]
 	{
 		let contents = try? contentsOfDirectory(atPath: directory.path)
+        
+        let acceptableExtensions = [".jpg", ".png", ".jpeg", ".webp"]
 		
 		let urls = contents?.compactMap({ component -> URL? in
-			if component.contains(".jpg") || component.contains(".png") || component.contains(".jpeg")
-			{
-				return directory.appendingPathComponent(component)
-			}
-			else
-			{
-				return nil
-			}
+            
+            for ext in acceptableExtensions {
+                if component.contains(ext) {
+                    return directory.appendingPathComponent(component)
+                }
+            }
+            
+            return nil
 		})
 		
 		return urls ?? []

@@ -51,6 +51,8 @@ class Image
     /// The bounding box is relative to the size of the image
     var boundingBox: CGRect
     {
+        // This crashes when updating the preferences to analyze faces if not
+        // done so already...
         return faces.first!.boundingBox
     }
     

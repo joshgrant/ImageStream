@@ -112,6 +112,7 @@
                 <outlet property="imageWidthConstraint" destination="fgs-wF-xP0" id="nsw-Ym-cBk"/>
                 <outlet property="imageXConstraint" destination="QBn-l2-gth" id="eam-IM-kMb"/>
                 <outlet property="imageYConstraint" destination="rxA-US-bJb" id="w0M-D5-Tvk"/>
+                <outlet property="mainView" destination="c22-O7-iKe" id="9RZ-eI-Wdn"/>
                 <outlet property="playPauseButton" destination="gOB-kW-JfS" id="o5A-8D-rAq"/>
                 <outlet property="progressBar" destination="uN0-yz-scu" id="9dL-qm-z5H"/>
                 <outlet property="view" destination="c22-O7-iKe" id="SjF-Su-sl6"/>
