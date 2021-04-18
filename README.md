@@ -18,6 +18,7 @@ Bugs:
 * If "anaylze faces" is not checked after loading photos, the app will crash if it's checked.
 * Needs to turn off "hide non-face photos" when "center on face" is not checked
 * There seems to be a number of images that is too many (didn't encounter this issue before) and it won't load.
+* Sometimes faces aren't aligned properly. Weird.
 
 Future Features:
 
