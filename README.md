@@ -4,6 +4,7 @@ A macOS tool for viewing photos in rapid succession.
 This includes a way to analyze faces so that the faces are centered in the window. You can turn off "analyze faces" and just stream non-face photos as well.
 
 ![Image Stream](https://user-images.githubusercontent.com/1711435/115137437-66460b80-a026-11eb-8939-fdcd33a6f28d.gif)
+
 (It's much smoother in the app)
 
 Hints:
