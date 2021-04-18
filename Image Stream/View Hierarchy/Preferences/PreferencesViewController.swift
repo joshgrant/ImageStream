@@ -19,6 +19,7 @@ class PreferencesViewController: NSViewController
     @IBOutlet weak var analyzeFacesCheckbox: NSButton!
     @IBOutlet weak var showFPSCheckbox: NSButton!
     @IBOutlet weak var zoomAtLaunch: NSButton!
+    @IBOutlet weak var hideNonFaceImageButton: NSButton!
 
     // MARK: - View lifecycle
     
@@ -31,6 +32,7 @@ class PreferencesViewController: NSViewController
         analyzeFacesCheckbox.boolState = Defaults.analyzeFaces
         showFPSCheckbox.boolState = Defaults.showFPS
         zoomAtLaunch.boolState = Defaults.zoomAtLaunch
+        hideNonFaceImageButton.boolState = Defaults.hideNonFaceImages
     }
     
     @IBAction func centerOnImage(sender: NSButton)
@@ -92,5 +94,10 @@ class PreferencesViewController: NSViewController
     @IBAction func zoomAtLaunch(sender: NSButton)
     {
         Defaults.zoomAtLaunch = sender.boolState
+    }
+    
+    @IBAction func hideNonFaceImages(sender: NSButton)
+    {
+        Defaults.hideNonFaceImages = sender.boolState
     }
 }

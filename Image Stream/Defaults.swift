@@ -37,6 +37,7 @@ import Foundation
 
 extension Defaults
 {
+    @Defaults(key: "hideNonFaceImages", defaultValue: true) static var hideNonFaceImages: Bool
     @Defaults(key: "centerOnImage", defaultValue: true) static var centerOnImage: Bool
     @Defaults(key: "centerOnFace", defaultValue: true) static var centerOnFace: Bool
     @Defaults(key: "analyzeFaces", defaultValue: true) static var analyzeFaces: Bool

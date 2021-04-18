@@ -49,11 +49,11 @@ class Image
     }
     
     /// The bounding box is relative to the size of the image
-    var boundingBox: CGRect
+    var boundingBox: CGRect?
     {
         // This crashes when updating the preferences to analyze faces if not
         // done so already...
-        return faces.first!.boundingBox
+        return faces.first?.boundingBox
     }
     
     init(image: NSImage, faces: [VNFaceObservation] = [])
@@ -62,7 +62,7 @@ class Image
         self.faces = faces
     }
     
-    static func analyzeForFacialLanmarks(image: NSImage, completion: @escaping (([VNFaceObservation]) -> Void))
+    static func analyzeForFacialLandmarks(image: NSImage, completion: @escaping (([VNFaceObservation]) -> Void))
     {
         let request = VNDetectFaceLandmarksRequest { (request, error) in
             

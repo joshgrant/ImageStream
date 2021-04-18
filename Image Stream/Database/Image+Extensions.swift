@@ -17,7 +17,28 @@ extension Image
 {
 	func imageConstraints(in rect: CGRect, idealSize: CGFloat, verticalOffset: CGFloat) -> (CGPoint, CGSize)?
 	{
-		if Defaults.centerOnImage
+        if Defaults.centerOnFace, let boundingBox = boundingBox
+        {
+            let imageSize = size
+            
+            let fullBoundingBox = CGRect(x: boundingBox.origin.x * imageSize.width,
+                                         y: boundingBox.origin.y * imageSize.height,
+                                         width: boundingBox.width * imageSize.width,
+                                         height: boundingBox.height * imageSize.height)
+            
+            let scaleFactor = idealSize / fullBoundingBox.width
+            
+            let newSize = CGSize(width: imageSize.width * scaleFactor,
+                                 height: imageSize.height * scaleFactor)
+            
+            
+            // Why not multiply by greater than 1????
+            let offset = CGPoint(x: (image.size.width / 2 - (fullBoundingBox.origin.x + fullBoundingBox.width / 2)) * scaleFactor,
+                                 y: -(image.size.height / 2 - (fullBoundingBox.origin.y + fullBoundingBox.height / 2)) * scaleFactor - verticalOffset)
+            
+            return (offset, newSize)
+        }
+        else if !(Defaults.hideNonFaceImages && Defaults.centerOnFace) // center on image
 		{
 			let imageSize = image.size
 			let imageAspectRatio = imageSize.width / imageSize.height
@@ -42,29 +63,7 @@ extension Image
 			
             return (.zero, scaledImageSize)
 		}
-		else if Defaults.centerOnFace
-		{
-			let imageSize = size
-			
-			let fullBoundingBox = CGRect(x: boundingBox.origin.x * imageSize.width,
-										 y: boundingBox.origin.y * imageSize.height,
-										 width: boundingBox.width * imageSize.width,
-										 height: boundingBox.height * imageSize.height)
-			
-			let scaleFactor = idealSize / fullBoundingBox.width
-			
-			let newSize = CGSize(width: imageSize.width * scaleFactor,
-								 height: imageSize.height * scaleFactor)
-			
-			
-			// Why not multiply by greater than 1????
-			let offset = CGPoint(x: (image.size.width / 2 - (fullBoundingBox.origin.x + fullBoundingBox.width / 2)) * scaleFactor,
-								 y: -(image.size.height / 2 - (fullBoundingBox.origin.y + fullBoundingBox.height / 2)) * scaleFactor - verticalOffset)
-			
-			return (offset, newSize)
-		}
-		
-		// TODO: We should handle this case...
-		return nil
+        
+        return nil
 	}
 }

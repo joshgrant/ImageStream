@@ -63,12 +63,12 @@ class MainViewModel
             
             if Defaults.analyzeFaces
             {
-                Image.analyzeForFacialLanmarks(image: image) { faces in
-                    if faces.count > 0 {
+                Image.analyzeForFacialLandmarks(image: image) { faces in
+//                    if faces.count > 0 {
                         // We don't want to add this image if we're analyzing faces
                         // and no faces were detected
                         images.append(Image(image: image, faces: faces))
-                    }
+//                    }
                     current += 1
                     progress(Double(current))
                     group.leave()
