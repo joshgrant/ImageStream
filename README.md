@@ -9,7 +9,7 @@ Hints:
 * Zoom out: scroll down
 * Move photo up: =
 * Move photo down: -
-* 
+* Open preferences to see some options
 
 Bugs:
 
