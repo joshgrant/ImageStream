@@ -10,6 +10,8 @@ Hints:
 * Move photo up: =
 * Move photo down: -
 * Open preferences to see some options
+* You can drag and drop a folder of images (png, jp(e)g, and webp only at the moment)
+* Or, you can use "Open" from the menu
 
 Bugs:
 
