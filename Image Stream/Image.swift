@@ -33,7 +33,7 @@ extension CGRect: Hashable
     }
 }
 
-class Image
+final class Image
 {
     var image: NSImage
     /// The key is the image scale... so we can resize it 

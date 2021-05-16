@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol MainViewDragDelegate: class
+protocol MainViewDragDelegate: AnyObject
 {
     func mainViewDidDrop(path: String)
 }

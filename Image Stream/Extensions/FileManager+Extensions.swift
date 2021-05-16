@@ -12,9 +12,11 @@ extension FileManager
 {
 	func imagesIn(directory: URL) -> [URL]
 	{
-		let contents = try? contentsOfDirectory(atPath: directory.path)
+        // This returns an array with undefined values
+        // Let's sort it... by? Name?
+        let contents = try? contentsOfDirectory(atPath: directory.path).sorted(by: { $0.localizedStandardCompare($1) == .orderedAscending })
         
-        let acceptableExtensions = [".jpg", ".png", ".jpeg", ".webp"]
+        let acceptableExtensions = [".jpg", ".png", ".jpeg", ".webp", ".tif", ".tiff"]
 		
 		let urls = contents?.compactMap({ component -> URL? in
             

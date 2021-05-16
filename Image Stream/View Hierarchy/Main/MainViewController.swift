@@ -25,7 +25,7 @@ class MainViewController: NSViewController
     var scrollDelta: CGFloat = 0
     
     lazy var imageManager: PHImageManager = {
-       return PHImageManager()
+        return PHImageManager()
     }()
     
     lazy var displayLinkCallback: CVDisplayLinkOutputCallback? = {
@@ -121,7 +121,7 @@ class MainViewController: NSViewController
             
             let image = self.viewModel.image(forward: forward)
             
-			guard let (origin, size) = image.imageConstraints(in: self.view.frame, idealSize: self.idealSize, verticalOffset: self.verticalOffset) else {
+            guard let (origin, size) = image.imageConstraints(in: self.view.frame, idealSize: self.idealSize, verticalOffset: self.verticalOffset) else {
                 self.readyForUpdate = true
                 return
             }
@@ -192,50 +192,50 @@ class MainViewController: NSViewController
     
     @IBAction func chooseFromPhotos(_ sender: NSMenuItem)
     {
-//        print("CHOOSE")
-//        
-//        PHPhotoLibrary.shared().register(self)
-//        PHPhotoLibrary.requestAuthorization { (status) in
-//            switch status
-//            {
-//            case .authorized:
-//                print("AUTHORIZED")
-//                
-//                let allPhotosOptions = PHFetchOptions()
-//                allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-//                // Probably create a strong reference to these...
-//                let allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
-//				let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
-//                let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-//                
-////                print(allPhotos)
-////                print(smartAlbums.firstObject)
-//                
-//                smartAlbums.enumerateObjects { (collection, index, pointer) in
-//                    print(collection)
-//                    print(index)
-//                    // Set this to true when we are done processing
-//                    print(pointer)
-//                }
-//                
-////                for album in smartAlbums {
-////                    print(album)
-////                }
-//                
-//                print(userCollections)
-//                
-//                
-//
-//            case .denied:
-//                print("DENIED")
-//            case .notDetermined:
-//                print("NOT DETERMINED")
-//            case .restricted:
-//                print("RESTRICTED")
-//            default:
-//                break
-//            }
-//        }
+        //        print("CHOOSE")
+        //
+        //        PHPhotoLibrary.shared().register(self)
+        //        PHPhotoLibrary.requestAuthorization { (status) in
+        //            switch status
+        //            {
+        //            case .authorized:
+        //                print("AUTHORIZED")
+        //
+        //                let allPhotosOptions = PHFetchOptions()
+        //                allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        //                // Probably create a strong reference to these...
+        //                let allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
+        //				let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
+        //                let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+        //
+        ////                print(allPhotos)
+        ////                print(smartAlbums.firstObject)
+        //
+        //                smartAlbums.enumerateObjects { (collection, index, pointer) in
+        //                    print(collection)
+        //                    print(index)
+        //                    // Set this to true when we are done processing
+        //                    print(pointer)
+        //                }
+        //
+        ////                for album in smartAlbums {
+        ////                    print(album)
+        ////                }
+        //
+        //                print(userCollections)
+        //
+        //
+        //
+        //            case .denied:
+        //                print("DENIED")
+        //            case .notDetermined:
+        //                print("NOT DETERMINED")
+        //            case .restricted:
+        //                print("RESTRICTED")
+        //            default:
+        //                break
+        //            }
+        //        }
     }
     
     @IBAction func open(_ sender: NSMenuItem)
@@ -268,17 +268,21 @@ class MainViewController: NSViewController
     func loadImages(from directory: URL) {
         let contents = FileManager.default.imagesIn(directory: directory)
         
+        print(contents)
+        
         DispatchQueue.main.async { [weak self] in
             self?.updateProgressBar(with: .empty)
         }
         
         let max = Double(contents.count)
         
-        MainViewModel.loadImages(from: contents, progress: { current in
-            DispatchQueue.main.async { [weak self] in
-                self?.updateProgressBar(with: .updating(value: current, max: max))
-            }
-        }, completion: { (images) in
+        detach {
+            let images = await MainViewModel.loadImages(from: contents, progress: { total in
+                DispatchQueue.main.async { [weak self] in
+                    self?.updateProgressBar(with: .updating(value: total, max: max))
+                }
+            })
+            
             DispatchQueue.main.async { [weak self] in
                 self?.updateProgressBar(with: .hidden)
                 self?.viewModel.images = images
@@ -288,7 +292,7 @@ class MainViewController: NSViewController
                 self?.playing = true
                 CVDisplayLinkStart(self!.displayLink)
             }
-        })
+        }
     }
     
     func updateProgressBar(with state: ProgressBarState)

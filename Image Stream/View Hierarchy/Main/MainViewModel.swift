@@ -47,44 +47,41 @@ class MainViewModel
         }
     }
     
-    static func loadImages(from urls: [URL], progress: @escaping ProgressHandler, completion: @escaping CompletionHandler)
-    {
-        let group = DispatchGroup()
-        var images: [Image] = []
-        var current: Int = 0
+    static func analyzeSingleImage(url: URL) async -> Image? {
         
-        // This is just to update the loading view...
-        progress(0)
+        let image = NSImage(byReferencing: url)
         
-        for url in urls
-        {
-            group.enter()
-            let image = NSImage(byReferencing: url)
-            
-            if Defaults.analyzeFaces
-            {
+        return await withUnsafeContinuation({ continuation in
+            if Defaults.analyzeFaces {
                 Image.analyzeForFacialLandmarks(image: image) { faces in
-//                    if faces.count > 0 {
-                        // We don't want to add this image if we're analyzing faces
-                        // and no faces were detected
-                        images.append(Image(image: image, faces: faces))
-//                    }
-                    current += 1
-                    progress(Double(current))
-                    group.leave()
+                    if faces.count > 0 { // Only if a face has been detected
+                        continuation.resume(returning: Image(image: image, faces: faces))
+                    } else {
+                        continuation.resume(returning: nil)
+                    }
                 }
+            } else {
+                continuation.resume(with: .success(Image(image: image)))
             }
-            else
-            {
-                images.append(Image(image: image))
+        })
+    }
+    
+    static func loadImages(from urls: [URL], progress: @escaping ProgressHandler) async -> [Image]
+    {
+        var images: [Image] = []
+        var current: Double = 0
+        
+        progress(current)
+        
+        for url in urls {
+            print("Analyzing: \(url)")
+            if let image = await analyzeSingleImage(url: url) {
+                images.append(image)
                 current += 1
-                progress(Double(current))
-                group.leave()
+                progress(current)
             }
         }
         
-        group.notify(queue: .main) {
-            completion(images)
-        }
+        return images
     }
 }
